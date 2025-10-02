@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us - Visual by Femi</title>
+  <link rel="icon" type="image/png" href="Visual By femi.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* Reset & Base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: url('Visual By femi.png') no-repeat center center fixed,
+                  linear-gradient(135deg, #0d0d0d, #1a1a1a);
+      background-size: 180px, cover;
+      color: #f0f0f0;
+      line-height: 1.6;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: rgba(30, 30, 30, 0.85);
+      backdrop-filter: blur(10px);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+    .navbar .logo {
+      color: #00ffd0;
+      font-size: 24px;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+    .navbar .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+    .navbar a {
+      color: #ccc;
+      font-size: 15px;
+      position: relative;
+      padding: 6px 0;
+      transition: color 0.3s ease;
+    }
+    .navbar a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, #00ffd0, #ff00c8);
+      transition: width 0.3s ease;
+    }
+    .navbar a:hover::after {
+      width: 100%;
+    }
+    .navbar a:hover {
+      color: #ffffff;
+    }
+    .navbar .active-link {
+      color: #ffffff;
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    .hamburger span {
+      height: 3px;
+      width: 25px;
+      background: #ccc;
+      margin: 4px 0;
+      transition: 0.4s;
+    }
+    @media (max-width: 768px) {
+      .navbar .nav-links {
+        display: none;
+        position: absolute;
+        top: 65px;
+        right: 30px;
+        background-color: #1e1e1e;
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+        border-radius: 8px;
+        width: 200px;
+      }
+      .navbar .nav-links.active {
+        display: flex;
+      }
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    /* About Section */
+    .about-section {
+      padding: 140px 20px 60px;
+      text-align: center;
+      background: rgba(0,0,0,0.7);
+      border-radius: 12px;
+      margin: 40px auto;
+      max-width: 900px;
+    }
+    .about-section h2 {
+      font-size: 36px;
+      color: #00ffd0;
+      margin-bottom: 20px;
+    }
+    .about-text {
+      font-size: 18px;
+      line-height: 1.8;
+      color: #ccc;
+      margin: 20px auto;
+      max-width: 800px;
+    }
+    .about-section img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      margin: 30px auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+
+    /* Team Section */
+    .team-section {
+      padding: 60px 20px;
+      border-radius: 12px;
+      margin: 40px auto;
+      max-width: 1200px;
+
+      /* Rainbow gradient background */
+      background: linear-gradient(135deg, #ff00c8, #00ffd0, #ffae00, #0099ff, #ff00c8);
+      background-size: 400% 400%;
+      animation: rainbowBG 12s ease infinite;
+    }
+    @keyframes rainbowBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .team-section h2 {
+      font-size: 36px;
+      text-align: center;
+      color: #fff;
+      margin-bottom: 40px;
+      text-shadow: 0 0 15px rgba(0,0,0,0.8);
+    }
+    .team-members {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 30px;
+    }
+    .team-member {
+      background-color: rgba(20,20,20,0.9);
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 12px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .team-member:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    }
+    .team-member img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      border: 2px solid #fff;
+    }
+    .team-member h3 {
+      font-size: 20px;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .team-member p {
+      color: #ddd;
+      font-size: 14px;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #000;
+      color: #888;
+      padding: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <a href="home.html" class="logo">Visual By Femi</a>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a href="home.html">Home</a>
+      <a href="about.html" class="active-link">About</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+
+  <!-- About Section -->
+  <section class="about-section" id="main-content">
+    <h2>About Us</h2>
+    <img src="Visual By femi.png" alt="Company logo">
+    <p class="about-text">
+      Welcome to Visual by Femi! We are a team of creative professionals dedicated to delivering high-quality design and digital content. Our passion lies in helping individuals and businesses stand out with modern, eye-catching, and professional visuals tailored to their needs.
+    </p>
+    <p class="about-text">
+      Our mission is to craft unique experiences through design, content, and innovation. From branding to creative direction, we aim to bring your vision to life in the most impactful way.
+    </p>
+  </section>
+
+  <!-- Team Section -->
+  <section class="team-section">
+    <h2>Meet Our Team</h2>
+    <div class="team-members">
+      <div class="team-member">
+        <img src="Army BE.jpg" alt="Femi Leon - CEO & Founder">
+        <h3>Femi Leon</h3>
+        <p>CEO & Founder</p>
+      </div>
+      <div class="team-member">
+        <img src="IDEK.png" alt="Jayson Momanyi - Creative Director">
+        <h3>Jayson Momanyi</h3>
+        <p>Creative Director</p>
+      </div>
+      <div class="team-member">
+        <img src="android-chrome-512x512.png" alt="Wellington Mugambi - Financial Manager">
+        <h3>Wellington Mugambi</h3>
+        <p>Financial Manager</p>
+      </div>
+      <div class="team-member">
+        <img src="DAAAAAAM.jpeg" alt="Andrew Akuak - Manager">
+        <h3>Andrew Akuak</h3>
+        <p>Manager</p>s
+      </div>
+      <div class="team-member">
+        <img src="this better work p2.jpg" alt="Kim Kip - Starvin Artist">
+        <h3>Kim Kip</h3>
+        <p>Starvin Artist</p>
+      </div>
+      <div class="team-member">
+        <img src="this better work p3.jpg" alt="Niel Kabora - Spiritual Leader">
+        <h3>Niel Kabora</h3>
+        <p>Spiritual Leader</p>
+      </div>
+      <div class="team-member">
+        <img src="this better work.jpg" alt="Davies Kiptoo - Leader">
+        <h3>Davies Kiptoo</h3>
+        <p>Football Addict • 100000+ Ego</p>
+      </div>
+      <div class="team-member">
+        <img src="Cristiano.jpg" alt="Dominion - Entrepreneur">
+        <h3>Dominion</h3>
+        <p>Entrepreneur</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 Visual By Femi | All Rights Reserved</p>
+  </footer>
+
+  <!-- Script for responsive menu -->
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById('navLinks');
+      nav.classList.toggle('active');
+    }
+  </script>
+
+</body>
+</html>

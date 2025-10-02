@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact | Visual by Femi</title>
+  <link rel="icon" type="image/png" href="Visual By femi.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* Reset & base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html,body { height: 100%; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #121212;
+      color: #fff;
+      line-height: 1.6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 28px;
+      background: rgba(30,30,30,0.85);
+      backdrop-filter: blur(10px);
+      z-index: 2000;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.45);
+    }
+    .logo { color: #00ffd0; font-size: 22px; font-weight:600; text-decoration:none; letter-spacing:1px; }
+    .nav-links { display:flex; gap:22px; align-items:center; }
+    .nav-links a {
+      color: #ccc; text-decoration:none; font-size:15px; position:relative; padding:6px 0;
+      transition: color .25s ease;
+    }
+    .nav-links a::after {
+      content:""; position:absolute; left:0; bottom:-6px; height:2px; width:0%;
+      background: linear-gradient(90deg,#00ffd0,#ff00c8); transition: width .25s ease;
+    }
+    .nav-links a:hover::after { width:100%; }
+    .nav-links a:hover { color:#fff; }
+    .nav-links .active-link { color:#fff; }
+    .hamburger { display:none; cursor:pointer; gap:4px; flex-direction:column; }
+    .hamburger span { width:25px; height:3px; background:#ccc; display:block; transition: transform .25s ease; }
+
+    @media (max-width:768px){
+      .nav-links { display:none; position:absolute; top:64px; right:18px; background:#1e1e1e; padding:12px; border-radius:8px; width:200px; flex-direction:column; gap:10px; }
+      .nav-links.active { display:flex; }
+      .hamburger { display:flex; }
+    }
+
+    /* HERO (uses homepage style: gradient + logo watermark + neon overlay) */
+    .hero {
+      position: relative;
+      margin-top: 80px; /* reserve space for fixed navbar */
+      height: 50vh;
+      min-height: 320px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      overflow:hidden;
+      background: linear-gradient(135deg, #121212 20%, #1e1e1e 80%);
+    }
+
+    /* faint logo watermark like homepage */
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image: url("Visual By femi.png");
+      background-repeat:no-repeat;
+      background-position:center;
+      background-size: 320px; /* tweak if needed */
+      opacity: 0.04;
+      z-index:0;
+      pointer-events:none;
+    }
+
+    /* neon overlay for subtle color wash */
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(90deg, rgba(0,255,208,0.06), rgba(255,0,200,0.06));
+      z-index:1;
+      pointer-events:none;
+    }
+
+    .hero-content { position:relative; z-index:2; padding:0 20px; max-width:900px; }
+
+    .hero h1 {
+      font-size:38px;
+      line-height:1.05;
+      margin-bottom:12px;
+      color:#fff;
+      text-shadow: 0 4px 18px rgba(0,0,0,0.6);
+    }
+    .hero p { color:#ddd; font-size:16px; max-width:800px; margin:0 auto 18px; }
+
+    .btn {
+      display:inline-block;
+      padding:14px 28px;
+      border-radius:8px;
+      background: linear-gradient(90deg,#E4405F,#C13584);
+      color:#fff;
+      text-decoration:none; border:none; cursor:pointer; font-weight:600;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .btn:hover { transform:scale(1.03); box-shadow:0 10px 30px rgba(201,64,130,0.2); }
+
+    /* CONTACT CARD */
+    .contact-container {
+      max-width:760px;
+      margin: 36px auto 80px;
+      padding:22px;
+      background: rgba(26,26,26,0.85);
+      border-radius:12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.03);
+      position: relative;
+      z-index:2;
+      overflow:hidden;
+    }
+
+    .contact-grid {
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:18px;
+    }
+
+    label { display:block; margin-bottom:6px; color:#dcdcdc; font-size:14px; font-weight:600; }
+    input[type="text"], input[type="email"], textarea {
+      width:100%;
+      padding:12px 14px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,0.04);
+      background:#121212;
+      color:#fff;
+      outline:none;
+      font-size:15px;
+      transition: box-shadow .15s ease, border-color .15s ease;
+    }
+    input:focus, textarea:focus {
+      box-shadow: 0 0 10px rgba(0,255,208,0.08);
+      border-color: #00ffd0;
+    }
+    textarea { min-height:140px; resize:vertical; }
+
+    .form-actions { display:flex; gap:12px; justify-content:flex-end; align-items:center; margin-top:6px; }
+    .note { color:#aaa; font-size:13px; margin-top:6px; text-align:left; }
+
+    /* FOOTER */
+    .footer {
+      text-align:center;
+      padding:28px 18px;
+      background:#0f0f0f;
+      color:#bdbdbd;
+      margin-top:40px;
+      border-top:1px solid rgba(255,255,255,0.02);
+    }
+    .socials { display:inline-flex; gap:18px; margin-top:6px; }
+    .socials a { color:#00ffd0; text-decoration:none; font-weight:600; transition: color .2s ease, transform .12s ease; }
+    .socials a:hover { color:#ff00c8; transform:translateY(-2px); }
+
+    /* small screens */
+    @media (min-width:720px) {
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width:420px) {
+      .hero h1 { font-size:28px; }
+      .hero p { font-size:14px; }
+      .logo { font-size:20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar" role="banner" aria-label="Main navigation">
+    <a href="home.html" class="logo">Visual by Femi</a>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav-links" id="navLinks" role="navigation" aria-label="Primary">
+      <a href="home.html" class="active-link">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- HERO (logo watermark + neon overlay) -->
+  <section class="contact-container" id="contact-card" aria-labelledby="form-heading">
+  <h2 id="form-heading" style="margin-bottom:12px; color:#00ffd0;">Contact Us</h2>
+
+  <form id="contact-form" class="contact-grid" novalidate>
+    <div>
+      <label for="name">Your name</label>
+      <input id="name" name="name" type="text" required placeholder="Femi Leon">
+    </div>
+
+    <div>
+      <label for="email">Email</label>
+      <input id="email" name="_replyto" type="email" required placeholder="lebronjames@gmail.com">
+    </div>
+
+    <div style="grid-column:1 / -1;">
+      <label for="message">Message</label>
+      <textarea id="message" name="message" required placeholder="Tell me about your project..."></textarea>
+      <div class="note">By sending this message you agree to be contacted about your inquiry.</div>
+    </div>
+
+    <div style="grid-column:1 / -1; display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+      <div style="color:#999; font-size:13px;">Or email: 
+        <a href="https://mail.google.com/mail/u/0/#inbox" style="color:#00ffd0; text-decoration:none;">
+          deeznutsisaac6@gmail.com
+        </a>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn">Send message</button>
+      </div>
+    </div>
+  </form>
+</section>
+
+<!-- Toast Notification -->
+<div id="toast"></div>
+
+<style>
+  /* Toast styling */
+  #toast {
+    visibility: hidden;
+    min-width: 250px;
+    background: linear-gradient(90deg, #00ffd0, #ff00c8);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 14px;
+    position: fixed;
+    z-index: 2000;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    font-size: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  }
+
+  #toast.show {
+    visibility: visible;
+    animation: fadeInOut 3s ease forwards;
+  }
+
+  @keyframes fadeInOut {
+    0% { bottom: 0; opacity: 0; }
+    10% { bottom: 30px; opacity: 1; }
+    90% { bottom: 30px; opacity: 1; }
+    100% { bottom: 0; opacity: 0; }
+  }
+</style>
+
+<script>
+  const form = document.getElementById("contact-form");
+  const toast = document.getElementById("toast");
+
+  function showToast(message, success = true) {
+    toast.textContent = message;
+    toast.style.background = success 
+      ? "linear-gradient(90deg, #00ffd0, #00b3ff)" 
+      : "linear-gradient(90deg, #ff004c, #ff6a00)";
+    toast.className = "show";
+    setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    try {
+      const response = await fetch("https://formspree.io/f/xgvnaykl", {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" }
+      });
+      if (response.ok) {
+        showToast("✅ Message sent successfully!", true);
+        form.reset();
+      } else {
+        showToast("⚠️ Something went wrong. Try again.", false);
+      }
+    } catch (error) {
+      showToast("⚠️ Network error. Please check your connection.", false);
+    }
+  });
+</script>
+
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div>&copy; 2025 Visual by Femi</div>
+    <div class="socials" aria-label="Follow on social media" style="margin-top:10px;">
+      <a href="https://www.instagram.com/visuabylfemi/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.youtube.com/@fymx.z" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu(){
+      const nav = document.getElementById('navLinks');
+      nav.classList.toggle('active');
+      const btn = document.getElementById('hamburger');
+      const expanded = nav.classList.contains('active');
+      btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    }
+  </script>
+</body>
+</html>
